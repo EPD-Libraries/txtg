@@ -36,7 +36,7 @@ struct Header {
 struct TextureEntry {
   u16 texture_index;
   u8 mip_index;
-  u8 unk1;  // always 1?
+  u8 unknown_1;  // Always 0x01?
 };
 
 class TXTG {
