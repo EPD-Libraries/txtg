@@ -25,12 +25,34 @@ Experimental `TexToGo` file format parser
 | 0x48   | u16                                    | Unknown (Always `512`?)                                      |
 | 0x4A   | u16                                    | Unknown (Always `512`?)                                      |
 | 0x4C   | Dword                                  | Unknown Data Block                                           |
-| 0x50   | TextureEntry[texture-count][mip_count] | Array of texture info entries for lookup?                    |
 
-### Texture Entry
+### Indices
+
+Following the header seems to be an array of mip index ([TextureEntry](#texture-entry)) arrays.
+
+```cpp
+std::array<TextureEntry[texture_count], mip_count> indices;
+```
+
+#### Texture Entry
 
 | Offset | Type | Description         |
 |--------|------|---------------------|
 | 0x00   | u16  | Texture Index       |
 | 0x02   | u8   | Mip-Map Index       |
 | 0x04   | u8   | Unknown (Always 1?) |
+
+### Offsets?
+
+Following the texture indices is an array of offset entries ([OffsetEntry](#offset-entry))
+
+```cpp
+std::array<OffsetEntry, texture_count*mip_count> indices;
+```
+
+#### Offset Entry
+
+| Offset | Type | Description         |
+|--------|------|---------------------|
+| 0x00   | u32  | Compressed Size     |
+| 0x04   | u32  | Unknown (Always 6?) |
